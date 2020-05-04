@@ -11,5 +11,5 @@
 ### 3. Start server
 > symfony server:start
 
-Symfony version : 5.0.8
-Recommanded PHP version : > 7.2.10
+**Symfony version :** 5.0.8  
+**Recommanded PHP version :** > 7.2.10
