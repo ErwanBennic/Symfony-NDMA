@@ -1,8 +1,9 @@
-# Angular-NDMA
+# Symfony-NDMA
 
 ## To run this project
 
 ### 1. Clone the project
+> git clone https://github.com/ErwanBennic/Symfony-NDMA.git
 
 ### 2. Update dependencies
 > composer install
