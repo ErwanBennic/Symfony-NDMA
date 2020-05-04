@@ -1,6 +1,6 @@
 # Angular-NDMA
 
-# To run this project
+#To run this project
 
 clone the project
 
