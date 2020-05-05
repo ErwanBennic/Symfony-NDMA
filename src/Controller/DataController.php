@@ -32,6 +32,9 @@ class DataController extends AbstractController
      */
     public function getSensor(string $name)
     {
+        $sensor =  $this->sensorRepository->findByName($name);
+        $sensorData = $sensor->getSensorData();
+
         $sensor = $this->sensorRepository->findOneByName($name);
 
         $response = new Response();
@@ -115,5 +118,4 @@ class DataController extends AbstractController
 
         return $jsonData;
     }
-
 }

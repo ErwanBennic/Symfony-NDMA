@@ -1,0 +1,27 @@
+.custom-nav {
+    min-width: 200px;
+    text-align: center;
+    color: rgba(255,255,255,.5);
+    overflow: hidden;
+}
+
+.custom-nav a {
+    color: inherit;
+}
+
+.image-temp {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.card-bg-color {
+    background-color: #071431d6;
+}
+
+.detail-text {
+    font-weight: bold;
+    color: white;
+}
