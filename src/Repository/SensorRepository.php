@@ -14,9 +14,17 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SensorRepository extends ServiceEntityRepository
 {
+
+    private $entityManager;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Sensor::class);
+        $this->entityManager = $this->getEntityManager();
+    }
+
+    public function getSensorsLastData() {
+        return $this->entityManager->createQuery("SELECT s, sd.value, sd.date FROM App\Entity\Sensor s INNER JOIN App\Entity\SensorData sd WHERE sd.date IN (SELECT max(sd2.date) FROM App\Entity\SensorData sd2) GROUP By s.id")->getResult();
     }
 
     // /**
