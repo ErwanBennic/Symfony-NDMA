@@ -34,7 +34,6 @@ class DataController extends AbstractController
     public function getSensor(string $name)
     {
         $sensor =  $this->sensorRepository->findByName($name);
-        dump($sensor);
         $sensorData = $sensor->getSensorData();
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK); 

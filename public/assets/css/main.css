@@ -1,0 +1,10 @@
+.custom-nav {
+    min-width: 200px;
+    text-align: center;
+    color: rgba(255,255,255,.5);
+    overflow: hidden;
+}
+
+.custom-nav a {
+    color: inherit;
+}
