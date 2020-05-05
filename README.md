@@ -29,3 +29,5 @@ Display web server status
 Load fixtures
 > php bin/console doctrine:fixtures:load
 
+Start listening to mqtt messages
+> php bin/console mqtt:listen
