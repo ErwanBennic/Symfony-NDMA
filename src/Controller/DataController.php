@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SensorRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DataController extends AbstractController
 {
@@ -38,15 +37,16 @@ class DataController extends AbstractController
         $response = new Response();
         if($sensor) {
             $datas = $this->sensorToArray($sensor);
-            $response->setStatusCode(Response::HTTP_OK); 
+            $response->setStatusCode(Response::HTTP_OK);
             $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->setContent(json_encode($datas));
-        }
-        else {
-            $response->setStatusCode(Response::HTTP_NOT_FOUND); 
+
+        } else {
+            $response->setStatusCode(Response::HTTP_NOT_FOUND);
         }
 
-        
+
         return $response;
     }
 
@@ -69,8 +69,9 @@ class DataController extends AbstractController
         }
 
         $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK); 
+        $response->setStatusCode(Response::HTTP_OK);
         $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->setContent(json_encode($datas));
         return $response;
     }
@@ -79,7 +80,7 @@ class DataController extends AbstractController
     /**
      * @Route("/api/sensor", name="saveSensor", methods={"PUT"})
      */
-    public function saveSensorData() 
+    public function saveSensorData()
     {
         $sensorData = new SensorData();
         $sensorData->setData('Keyboard');
@@ -90,25 +91,25 @@ class DataController extends AbstractController
         $this->entityManager->flush();
 
         $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);    
+        $response->setStatusCode(Response::HTTP_OK);
         return $response;
     }
-    
+
 
     public function sensorToArray($sensor) {
         $sensorName = $sensor->getName();
-        $sensorUnit = $sensor->getUnit()->getName(); 
+        $sensorUnit = $sensor->getUnit()->getName();
         $sensorData = $sensor->getSensorData();
         $nbData = count($sensorData);
 
         $jsonData = ["name" => $sensorName, "unit" => $sensorUnit];
         $datas = [];
-        for ($i=0; $i < $nbData; $i++) { 
+        for ($i = 0; $i < $nbData; $i++) {
             $datas[] = [
                 "value" => $sensorData[$i]->getValue(),
                 "date" => $sensorData[$i]->getDate()
             ];
-            
+
         }
         $jsonData["data"] = $datas;
 
