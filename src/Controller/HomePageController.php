@@ -17,7 +17,7 @@ class HomePageController extends AbstractController
         $data = $response->getContent();
         $data = json_decode($data);
         return $this->render('home/home.html.twig', [
-            'data' => $data[0]->value,
+            'datas' => $data,
         ]);
     }
 }
