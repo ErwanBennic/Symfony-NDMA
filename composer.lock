@@ -1,20 +1,20 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "6dff87e55dfec5c26501f82fbdab55b5",
-    "packages": [
-        {
-            "name": "doctrine/annotations",
-            "version": "1.10.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b9d758e831c70751155c698c2f7df4665314a1cb"
-            },
-            "dist": {
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "4091621655d8ff29c73f4546edf66a6c",
+  "packages": [
+    {
+      "name": "doctrine/annotations",
+      "version": "1.10.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/doctrine/annotations.git",
+        "reference": "b9d758e831c70751155c698c2f7df4665314a1cb"
+      },
+      "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/annotations/zipball/b9d758e831c70751155c698c2f7df4665314a1cb",
                 "reference": "b9d758e831c70751155c698c2f7df4665314a1cb",
@@ -1252,25 +1252,62 @@
                     "homepage": "http://jeremydorn.com/"
                 }
             ],
-            "description": "a PHP SQL highlighting library",
-            "homepage": "https://github.com/jdorn/sql-formatter/",
-            "keywords": [
-                "highlight",
-                "sql"
-            ],
-            "time": "2014-01-12T16:20:24+00:00"
+          "description": "a PHP SQL highlighting library",
+          "homepage": "https://github.com/jdorn/sql-formatter/",
+          "keywords": [
+            "highlight",
+            "sql"
+          ],
+          "time": "2014-01-12T16:20:24+00:00"
         },
+    {
+      "name": "karpy47/php-mqtt-client",
+      "version": "v1.0.4",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/karpy47/PhpMqttClient.git",
+        "reference": "85054c4cb40e7eb0b931a33e081e540a14085ec3"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/karpy47/PhpMqttClient/zipball/85054c4cb40e7eb0b931a33e081e540a14085ec3",
+        "reference": "85054c4cb40e7eb0b931a33e081e540a14085ec3",
+        "shasum": ""
+      },
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "karpy47\\PhpMqttClient\\": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
         {
-            "name": "monolog/monolog",
-            "version": "2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c861fcba2ca29404dc9e617eedd9eff4616986b8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c861fcba2ca29404dc9e617eedd9eff4616986b8",
+          "name": "karpy47"
+        }
+      ],
+      "description": "MQTT 3.1.1 library for PHP with TLS support",
+      "keywords": [
+        "client",
+        "mqtt",
+        "php"
+      ],
+      "time": "2019-07-29T13:52:45+00:00"
+    },
+    {
+      "name": "monolog/monolog",
+      "version": "2.0.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/Seldaek/monolog.git",
+        "reference": "c861fcba2ca29404dc9e617eedd9eff4616986b8"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c861fcba2ca29404dc9e617eedd9eff4616986b8",
                 "reference": "c861fcba2ca29404dc9e617eedd9eff4616986b8",
                 "shasum": ""
             },
@@ -6818,15 +6855,16 @@
             "time": "2020-04-28T17:58:55+00:00"
         }
     ],
-    "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
-    "prefer-lowest": false,
-    "platform": {
-        "php": "^7.2.5",
-        "ext-ctype": "*",
-        "ext-iconv": "*"
-    },
-    "platform-dev": []
+  "aliases": [ ],
+  "minimum-stability": "stable",
+  "stability-flags": [ ],
+  "prefer-stable": false,
+  "prefer-lowest": false,
+  "platform": {
+    "php": "^7.2.5",
+    "ext-ctype": "*",
+    "ext-iconv": "*"
+  },
+  "platform-dev": [ ],
+  "plugin-api-version": "1.1.0"
 }
