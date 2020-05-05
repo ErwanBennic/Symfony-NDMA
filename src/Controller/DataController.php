@@ -22,17 +22,20 @@ class DataController extends AbstractController
      */
     private $sensorRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, SensorRepository $sensorRepository)
     {
         $this->entityManager = $entityManager;
-        //$this->sensorRepository = $this->entityManager->getRepository(Sensor::class);
+        $this->sensorRepository = $sensorRepository;
     }
 
     /**
      * @Route("/api/sensor/{name}", name="getSensor", methods={"GET"})
      */
-    public function getSensorData(string $name)
+    public function getSensor(string $name)
     {
+        $sensor =  $this->sensorRepository->findByName($name);
+        dump($sensor);
+        $sensorData = $sensor->getSensorData();
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK); 
         $response->headers->set('Content-Type', 'application/json');
@@ -47,7 +50,7 @@ class DataController extends AbstractController
     /**
      * @Route("/api/sensor/all", name="getAllSensor", methods={"GET"})
      */
-    public function getAllSensorData()
+    public function getAllSensor()
     {
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK); 

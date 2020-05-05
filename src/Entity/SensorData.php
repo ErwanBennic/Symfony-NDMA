@@ -17,40 +17,57 @@ class SensorData
     private $id;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=255)
      */
-    private $data = [];
+    private $value;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Sensor", cascade={"persist", "remove"})
+     * @ORM\Column(type="datetime")
      */
-    private $sensor_id;
+    private $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Sensor", inversedBy="sensor_data")
+     */
+    private $sensor;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getData(): ?array
+    public function getValue(): ?string
     {
-        return $this->data;
+        return $this->value;
     }
 
-    public function setData(array $data): self
+    public function setValue(string $value): self
     {
-        $this->data = $data;
+        $this->value = $value;
 
         return $this;
     }
 
-    public function getSensorId(): ?Sensor
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->sensor_id;
+        return $this->date;
     }
 
-    public function setSensorId(?Sensor $sensor_id): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->sensor_id = $sensor_id;
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getSensor(): ?Sensor
+    {
+        return $this->sensor;
+    }
+
+    public function setSensor(?Sensor $sensor): self
+    {
+        $this->sensor = $sensor;
 
         return $this;
     }
