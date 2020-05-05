@@ -25,3 +25,7 @@ List all running web servers
 
 Display web server status 
 > symfony server:status
+
+Load fixtures
+> php bin/console doctrine:fixtures:load
+
