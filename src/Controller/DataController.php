@@ -33,32 +33,45 @@ class DataController extends AbstractController
      */
     public function getSensor(string $name)
     {
-        $sensor =  $this->sensorRepository->findByName($name);
-        dump($sensor);
-        $sensorData = $sensor->getSensorData();
+        $sensor = $this->sensorRepository->findOneByName($name);
+
         $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK); 
-        $response->headers->set('Content-Type', 'application/json');
-        $response->setContent(json_encode([
-            'azd' => 44949,
-            'unit' => "température"
-        ]));
+        if($sensor) {
+            $datas = $this->sensorToArray($sensor);
+            $response->setStatusCode(Response::HTTP_OK); 
+            $response->headers->set('Content-Type', 'application/json');
+            $response->setContent(json_encode($datas));
+        }
+        else {
+            $response->setStatusCode(Response::HTTP_NOT_FOUND); 
+        }
+
         
         return $response;
     }
 
     /**
-     * @Route("/api/sensor/all", name="getAllSensor", methods={"GET"})
+     * @Route("/api/sensor", name="getAllSensor", methods={"GET"})
      */
     public function getAllSensor()
     {
+        $sensors = $this->sensorRepository->getSensorsLastData();
+
+        $datas = [];
+
+        foreach($sensors as $sensor) {
+            //dd($sensor);
+            $datas[] = [
+                "name" => $sensor[0]->getName(),
+                "unit" => $sensor[0]->getUnit()->getName(),
+                "value" => $sensor["value"]
+            ];
+        }
+
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK); 
         $response->headers->set('Content-Type', 'application/json');
-        $sensorsData = [
-            ['value' => '12', 'unit' => 'Thermomètre', 'type' => 'Humidité'], 
-            ['value' => 'Fermée', 'unit'=> 'Porte', 'type' => 'Chépa']];
-        $response->setContent(json_encode($sensorsData));
+        $response->setContent(json_encode($datas));
         return $response;
     }
 
@@ -81,5 +94,25 @@ class DataController extends AbstractController
         return $response;
     }
     
+
+    public function sensorToArray($sensor) {
+        $sensorName = $sensor->getName();
+        $sensorUnit = $sensor->getUnit()->getName(); 
+        $sensorData = $sensor->getSensorData();
+        $nbData = count($sensorData);
+
+        $jsonData = ["name" => $sensorName, "unit" => $sensorUnit];
+        $datas = [];
+        for ($i=0; $i < $nbData; $i++) { 
+            $datas[] = [
+                "value" => $sensorData[$i]->getValue(),
+                "date" => $sensorData[$i]->getDate()
+            ];
+            
+        }
+        $jsonData["data"] = $datas;
+
+        return $jsonData;
+    }
 
 }
