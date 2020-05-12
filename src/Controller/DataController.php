@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Sensor;
 use App\Repository\SensorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,16 +59,16 @@ class DataController extends AbstractController
      */
     public function getAllSensor()
     {
-        $sensors = $this->sensorRepository->getSensorsLastData();
-
+//        $sensors = $this->sensorRepository->getSensorsLastData();
+        $sensors = $this->sensorRepository->findAll();
         $datas = [];
 
         foreach($sensors as $sensor) {
-            //dd($sensor);
+//            dd();
             $datas[] = [
-                "name" => $sensor[0]->getName(),
-                "unit" => $sensor[0]->getUnit()->getName(),
-                "value" => $sensor["value"]
+                "name" => $sensor->getName(),
+                "unit" => $sensor->getUnit()->getName(),
+                "value" => $sensor->getSensorData()->get($sensor->getSensorData()->count() - 1)->getValue()
             ];
         }
 

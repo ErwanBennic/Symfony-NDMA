@@ -24,7 +24,7 @@ class SensorRepository extends ServiceEntityRepository
     }
 
     public function getSensorsLastData() {
-        return $this->entityManager->createQuery("SELECT s, sd.value, sd.date FROM App\Entity\Sensor s INNER JOIN App\Entity\SensorData sd WHERE sd.date IN (SELECT max(sd2.date) FROM App\Entity\SensorData sd2) GROUP By s.id")->getResult();
+        return $this->entityManager->createQuery("SELECT s, sd.value, sd.date FROM App\Entity\Sensor s INNER JOIN App\Entity\SensorData sd WHERE sd.id IN (SELECT max(sd2.id) FROM App\Entity\SensorData sd2 GROUP By sd2.sensor)")->getResult();
     }
 
     // /**
