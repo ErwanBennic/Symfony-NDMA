@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Sensor;
+use App\Entity\SensorData;
 use App\Repository\SensorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,12 +56,10 @@ class DataController extends AbstractController
      */
     public function getAllSensor()
     {
-//        $sensors = $this->sensorRepository->getSensorsLastData();
         $sensors = $this->sensorRepository->findAll();
         $datas = [];
 
         foreach($sensors as $sensor) {
-//            dd();
             $datas[] = [
                 "name" => $sensor->getName(),
                 "unit" => $sensor->getUnit()->getName(),
@@ -76,7 +74,6 @@ class DataController extends AbstractController
         $response->setContent(json_encode($datas));
         return $response;
     }
-
 
     /**
      * @Route("/api/sensor", name="saveSensor", methods={"PUT"})
@@ -141,16 +138,25 @@ class DataController extends AbstractController
         $sensorUnit = $sensor->getUnit()->getName();
         $sensorData = $sensor->getSensorData();
         $nbData = count($sensorData);
-
         $jsonData = ["name" => $sensorName, "unit" => $sensorUnit];
         $datas = [];
-        for ($i = 0; $i < $nbData; $i++) {
-            $datas[] = [
-                "value" => $sensorData[$i]->getValue(),
-                "date" => $sensorData[$i]->getDate()
-            ];
+        if ($nbData < 20){
+            for ($i = 0; $i < $nbData; $i++) {
+                $datas[] = [
+                    "value" => $sensorData[$i]->getValue(),
+                    "date" => $sensorData[$i]->getDate()
+                ];
+            }
+        } else {
+            for ($i = $nbData - 20; $i < $nbData; $i++) {
+                $datas[] = [
+                    "value" => $sensorData[$i]->getValue(),
+                    "date" => $sensorData[$i]->getDate()
+                ];
 
+            }
         }
+
         $jsonData["data"] = $datas;
 
         return $jsonData;
