@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UnitRepository")
  */
-class Category
+class Unit
 {
     /**
      * @ORM\Id()
@@ -24,7 +24,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Sensor", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Sensor", mappedBy="unit")
      */
     private $sensors;
 
@@ -62,7 +62,7 @@ class Category
     {
         if (!$this->sensors->contains($sensor)) {
             $this->sensors[] = $sensor;
-            $sensor->setCategory($this);
+            $sensor->setUnit($this);
         }
 
         return $this;
@@ -73,8 +73,8 @@ class Category
         if ($this->sensors->contains($sensor)) {
             $this->sensors->removeElement($sensor);
             // set the owning side to null (unless already changed)
-            if ($sensor->getCategory() === $this) {
-                $sensor->setCategory(null);
+            if ($sensor->getUnit() === $this) {
+                $sensor->setUnit(null);
             }
         }
 
