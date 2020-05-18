@@ -141,16 +141,25 @@ class DataController extends AbstractController
         $sensorUnit = $sensor->getUnit()->getName();
         $sensorData = $sensor->getSensorData();
         $nbData = count($sensorData);
-
         $jsonData = ["name" => $sensorName, "unit" => $sensorUnit];
         $datas = [];
-        for ($i = 0; $i < $nbData; $i++) {
-            $datas[] = [
-                "value" => $sensorData[$i]->getValue(),
-                "date" => $sensorData[$i]->getDate()
-            ];
+        if ($nbData < 20){
+            for ($i = 0; $i < $nbData; $i++) {
+                $datas[] = [
+                    "value" => $sensorData[$i]->getValue(),
+                    "date" => $sensorData[$i]->getDate()
+                ];
+            }
+        } else {
+            for ($i = $nbData - 20; $i < $nbData; $i++) {
+                $datas[] = [
+                    "value" => $sensorData[$i]->getValue(),
+                    "date" => $sensorData[$i]->getDate()
+                ];
 
+            }
         }
+
         $jsonData["data"] = $datas;
 
         return $jsonData;
