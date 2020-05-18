@@ -104,14 +104,28 @@ class DataController extends AbstractController
     {
         $sensor = $this->sensorRepository->findOneByName($name);
         $sensorData = $sensor->getSensorData();
-        var_dump($sensorData);
+        //echo $sensorData[0]->getValue();
+
+        $values = [];
+        $labels = [];
+
+        foreach($sensorData as $data) {
+            //$date = date_format($data->getDate(), 'Y-m-d H:i:s');
+            $values[] = $data->getValue();
+            $labels[] = $data->getDate()->format("m-Y à H:i");
+        }
+
+        $data = [
+            "labels" => $labels,
+            "values" => $values
+        ];
+
         $response = new Response();
         if($sensor) {
-            //$datas = $this->sensorToArray($sensor);
             $response->setStatusCode(Response::HTTP_OK);
             $response->headers->set('Content-Type', 'application/json');
             $response->headers->set('Access-Control-Allow-Origin', '*');
-            $response->setContent("{}");
+            $response->setContent(json_encode($data));
 
         } else {
             $response->setStatusCode(Response::HTTP_NOT_FOUND);
