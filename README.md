@@ -34,3 +34,7 @@ List of commands
 
 Start listening to mqtt messages
 > php bin/console mqtt:listen
+
+
+If you get CORS issues, you will need this chrome extension.  
+> https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino/related
