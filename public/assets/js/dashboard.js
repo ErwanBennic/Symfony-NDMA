@@ -3,6 +3,8 @@
 (function () {
   'use strict'
 
+  let page = 0;
+
   feather.replace()
 
   // Graphs
@@ -14,7 +16,7 @@
       xhr.open("GET", url + "/" + sensorName);
       xhr.onload = () => resolve(xhr.responseText);
       xhr.onerror = () => reject(xhr.statusText);
-      xhr.send();
+      xhr.send(false);
     }).then(function(result) {
       let data = JSON.parse(result);
 
@@ -54,20 +56,21 @@
   let button1 = document.querySelector("#page1");
   var myChart;
 
-  if(page === 0) {
-    myChart = getChartData("http://localhost:8000/api/getChart", "TEMP");
-  } 
-  else {
-    myChart = getChartData("http://localhost:8000/api/getChart", "HUM");
-  }
-
   button0.addEventListener("click", function() {
-    myChart = getChartData("http://localhost:8000/api/getChart", "TEMP");
+    myChart = getChartData("http://localhost:8000/api/getchart", "TEMP");
   });
 
-  
   button1.addEventListener("click", function() {
-    myChart = getChartData("http://localhost:8000/api/getChart", "HUM");
-  })
+    myChart = getChartData("http://localhost:8000/api/getchart", "HUM");
+  });
+
+   if(page === 0) {
+    myChart = getChartData("http://localhost:8000/api/getchart", "TEMP");
+  } 
+  else {
+    myChart = getChartData("http://localhost:8000/api/getchart", "HUM");
+  }
+
+
 
 }())

@@ -33,11 +33,8 @@ class DataController extends AbstractController
      */
     public function getSensor(string $name)
     {
-        $sensor =  $this->sensorRepository->findByName($name);
-        $sensorData = $sensor->getSensorData();
-
         $sensor = $this->sensorRepository->findOneByName($name);
-
+        $sensorData = $sensor->getSensorData();
         $response = new Response();
         if($sensor) {
             $datas = $this->sensorToArray($sensor);
@@ -96,6 +93,31 @@ class DataController extends AbstractController
 
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
+        return $response;
+    }
+
+
+    /**
+     * @Route("/api/getchart/{name}", name="getChart", methods={"GET"})
+     */
+    public function getChart(string $name)
+    {
+        $sensor = $this->sensorRepository->findOneByName($name);
+        $sensorData = $sensor->getSensorData();
+        var_dump($sensorData);
+        $response = new Response();
+        if($sensor) {
+            //$datas = $this->sensorToArray($sensor);
+            $response->setStatusCode(Response::HTTP_OK);
+            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->setContent("{}");
+
+        } else {
+            $response->setStatusCode(Response::HTTP_NOT_FOUND);
+        }
+
+
         return $response;
     }
 
