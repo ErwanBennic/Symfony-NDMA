@@ -14,9 +14,10 @@
     return new Promise(function(resolve, reject) {
       const xhr = new XMLHttpRequest();
       xhr.open("GET", url + "/" + sensorName);
+      xhr.withCredentials = false;
       xhr.onload = () => resolve(xhr.responseText);
       xhr.onerror = () => reject(xhr.statusText);
-      xhr.send(false);
+      xhr.send();
     }).then(function(result) {
       let data = JSON.parse(result);
 
@@ -58,10 +59,14 @@
 
   button0.addEventListener("click", function() {
     myChart = getChartData("http://localhost:8000/api/getchart", "TEMP");
+    button0.classList.add("active");
+    button1.classList.remove("active");
   });
 
   button1.addEventListener("click", function() {
     myChart = getChartData("http://localhost:8000/api/getchart", "HUM");
+    button0.classList.remove("active");
+    button1.classList.add("active");
   });
 
    if(page === 0) {
