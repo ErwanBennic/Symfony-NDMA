@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -31,7 +33,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/api/login", name="api_login", methods={"OPTIONS", "POST"})
      */
-    public function api_login(Request $request): Response
+    public function api_login(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
@@ -40,12 +42,22 @@ class SecurityController extends AbstractController
         // get the login error if there is one
         // last username entered by the user
 
+
         $response = new Response();
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Content-Type', 'application/json');
-        $response->setStatusCode(Response::HTTP_OK);
 
-        $response->setContent(json_encode([$request->request->all()]));
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $request->get('username')]);
+
+        if ($user) {
+            $password = $passwordEncoder->isPasswordValid($user, $request->get('password'));
+            if ($password) {
+                $response->setStatusCode(Response::HTTP_OK);
+                return $response;
+            }
+        }
+        $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        $response->setContent(json_encode(['error' => $password]));
 
         return $response;
     }
